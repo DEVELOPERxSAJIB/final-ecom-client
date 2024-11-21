@@ -10,7 +10,7 @@ import {
 } from "../../features/products/productApiSlice";
 import AlertMessage from "../../../utils/AlertMessage";
 import { setMessageEmpty } from "../../features/products/productSlice";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import { addItem, updateQuantity } from "../../features/cart/cartSlice";
 import Review from "../../components/Review/Review";
 import Ratings from "../../components/Ratings/Ratings";
@@ -133,7 +133,7 @@ const SingleProduct = () => {
               <div className="row shadow-5">
                 <div className="col-12 product-img mb-1">
                   <div className="lightbox shadow-sm">
-                    <ReactImageMagnify
+                    {/* <ReactImageMagnify
                       style={{ zIndex: 9 }}
                       {...{
                         smallImage: {
@@ -153,7 +153,10 @@ const SingleProduct = () => {
                           onLoad: "Loading image...",
                         },
                       }}
-                    />
+                    /> */}
+                    <img style={{width: "100%", objectFit: "cover"}} src={productSingleThmb
+                            ? productSingleThmb
+                            : productDetails.images[0].url} alt="" />
                   </div>
                 </div>
                 {productDetails._id === id &&
