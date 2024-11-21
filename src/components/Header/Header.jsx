@@ -32,7 +32,7 @@ const Header = () => {
           </Link>
 
           {user ? (
-            <div className="ml-4 dropdown d-inline">
+            <div className="ml-4 drop-css dropdown d-inline">
               <Link
                 to="#!"
                 className="btn dropdown-toggle text-white mr-4"
@@ -44,9 +44,9 @@ const Header = () => {
               >
                 <figure className="avatar avatar-nav">
                   <img
-                    src={user.avatar && user.avatar.url}
+                    src={user?.avatar?.url ? user.avatar.url : "https://cdn-icons-png.flaticon.com/512/3870/3870822.png"}
                     alt={user && user.name}
-                    className="rounded-circle"
+                    className="rounded-circle bg-success"
                   />
                 </figure>
                 <span>{user && user.name}</span>

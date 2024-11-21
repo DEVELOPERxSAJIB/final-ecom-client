@@ -5,7 +5,7 @@ const Review = ({ reviews })  => {
     <>
       <div className="container container-fluid">
         <div className="reviews w-75">
-          <h3>Other&apos;s Reviews:</h3>
+          <h3>Ptoduct&apos;s Reviews:</h3>
           <hr />
 
           {reviews &&

@@ -66,7 +66,7 @@ const Cart = () => {
                           />
                         </div>
                         <div className="col-5 col-lg-3">
-                          <Link to={`/product/${item.id}`}>{item.name}</Link>
+                          <Link  style={{color: "#10ac84", textDecoration: "none"}} to={`/product/${item.id}`}>{item.name}</Link>
                         </div>
                         <div className="col-4 col-lg-2 mt-lg-0">
                           <p id="card_item_price">${item.price}</p>

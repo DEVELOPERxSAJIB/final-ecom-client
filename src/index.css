@@ -1,3 +1,48 @@
+body {
+  background-color: #10ac850b;
+}
+
+.btn {
+  box-shadow: none !important;
+  outline: 0;
+}
+input {
+  box-shadow: none !important;
+  outline: 0;
+}
+input:focus {
+  border-color:#10AC84 !important;
+}
+
+.drop-css .btn:focus {
+  box-shadow: none;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: transparent;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 160%;
+  left: -20px;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #ffffff;
+  box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  border: 0;
+  border-radius: .25rem;
+}
+
 .login-main-container {
   margin: 8% 0;
   display: flex;
@@ -111,7 +156,7 @@
 }
 
 .menu-active {
-  background-color: #fff;
+  background-color: #fff !important;
   color: #000 !important;
 }
 
@@ -124,4 +169,137 @@
 .sub-menu-active:hover {
   color: #000 !important;
   border-radius: 5px;
+}
+
+/* Slider CSS */
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 15px;
+  color: #fff;
+}
+
+.swiper-button-prev {
+  left: var(--swiper-navigation-sides-offset, 60px);
+  right: auto;
+  background: #10AC84;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 60px);
+  left: auto;
+  background: #10AC84;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.swiper-pagination-bullet-active {
+  background: #10AC84;
+}
+
+
+/* Card CSS */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 44px 15px #000;
+}
+
+/* Middle banner CSS */
+.middle-banner {
+  position: relative;
+  display: inline-block;
+  overflow: hidden; /* Ensures the effect is confined to the image */
+}
+
+.middle-banner img {
+  display: block;
+  width: 100%;
+  transition: transform 0.3s ease; /* Optional scaling effect */
+}
+
+.middle-banner:hover img {
+  transform: scale(1.05); /* Optional zoom effect */
+}
+
+.middle-banner::before,
+.middle-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(0, 0, 0, 0.051); /* White shade */
+  transform: translateY(-100%); /* Start above the image */
+  transition: transform 0.5s ease-in-out; /* Smooth animation */
+  z-index: 1;
+}
+
+.middle-banner::after {
+  top: auto; /* Position at the bottom */
+  bottom: 0;
+  transform: translateY(100%); /* Start below the image */
+}
+
+.middle-banner:hover::before {
+  transform: translateY(0%); /* Move to the middle */
+}
+
+.middle-banner:hover::after {
+  transform: translateY(0%); /* Move to the middle */
+}
+
+
+/* Banner CSS */
+.upload-section{
+  width: 100% !important;
+  height: 250px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px dotted #2f4f7529;
+}
+
+
+.upload-section label {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+.upload-section input[type="file"] {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.col-md-2 {
+  -ms-flex: 0 0 16.666667%;
+  flex: 0 0 16.666667%;
+  max-width: 15.666667%;
 }

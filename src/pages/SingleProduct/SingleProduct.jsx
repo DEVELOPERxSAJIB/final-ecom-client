@@ -184,8 +184,8 @@ const SingleProduct = () => {
             </div>
 
             <div className="product-right-area col-12 col-lg-5">
-              <h3>{productDetails?.name}</h3>
               <p id="product_id">Product # {productDetails?._id}</p>
+              <h3>{productDetails?.name}</h3>
               <hr />
               <div className="d-flex align-items-center">
                 <Ratings value={productDetails.ratings} />

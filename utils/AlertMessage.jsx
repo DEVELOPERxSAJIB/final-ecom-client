@@ -4,7 +4,7 @@ const AlertMessage = ({ type = 'success', msg }) => {
 
   return toast[type](
      msg,{
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
