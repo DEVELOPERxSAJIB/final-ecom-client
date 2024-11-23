@@ -54,7 +54,7 @@ input#search_field:focus {
 
 #login_btn,
 #view_btn {
-  background-color: #10ac84;
+  background-color: #10ac84 !important;
   padding: 0.4rem 1.8rem;
   font-family: calibri;
   transition: all 0.3s ease-in;

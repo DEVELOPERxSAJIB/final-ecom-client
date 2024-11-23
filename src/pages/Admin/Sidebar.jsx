@@ -15,7 +15,8 @@ const Sidebar = () => {
             <li>
               <Link
                 className={
-                  location.pathname === "/dashboard" ? "menu-active" : null
+                  location.pathname === "/dashboard"
+                   ? "menu-active" : null
                 }
                 to="/dashboard"
               >
@@ -26,23 +27,12 @@ const Sidebar = () => {
             <li>
               <Link
                 className={
-                  location.pathname === "/admin/hero-banner"
-                    ? "menu-active"
-                    : null
-                }
-                to="/admin/hero-banner"
-              >
-                <PiFlagBannerDuotone /> Banner
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={
+                  location.pathname === "/admin/hero-banner" ||
                   location.pathname === "/admin/create-hero-banner"
                     ? "menu-active"
                     : null
                 }
-                to="/admin/create-hero-banner"
+                to="/admin/hero-banner"
               >
                 <PiFlagBannerDuotone /> Banner
               </Link>

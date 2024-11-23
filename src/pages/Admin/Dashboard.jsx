@@ -85,7 +85,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Orders
-                        <br /> <b>{orders.length}</b>
+                        <br /> <b>{orders?.length}</b>
                       </div>
                     </div>
                     <Link
@@ -105,7 +105,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Users
-                        <br /> <b>{users.length}</b>
+                        <br /> <b>{users?.length}</b>
                       </div>
                     </div>
                     <Link

@@ -58,7 +58,7 @@ const CreateProduct = () => {
         text: "",
         icon: "info",
         dangerMode: true,
-      })
+      });
     } else {
       // upload
       setPhoto([...files]);
@@ -250,10 +250,13 @@ const CreateProduct = () => {
               </div>
 
               <button
-                id="login_button"
+                style={{
+                  background: "red",
+                  color: "black",
+                }}
                 type="submit"
                 className="btn btn-block py-3"
-                disabled={loader ? true : false}
+                // disabled={loader ? true : false}
               >
                 {loader ? "CREATING . . ." : "CREATE"}
               </button>

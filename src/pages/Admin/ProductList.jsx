@@ -4,7 +4,6 @@ import {
   deleteProduct,
   getAllProductsByAdmin,
 } from "../../features/productsList/productsListApiSlice";
-import Metadata from "../../../utils/MetaData";
 import MainLoader from "../../../utils/MainLoader";
 import { MDBDataTable } from "mdbreact";
 import AlertMessage from "../../../utils/AlertMessage";
@@ -12,6 +11,8 @@ import { setMessageEmpty } from "../../features/productsList/productsListSlice";
 import Sidebar from "./Sidebar";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import Metadata from "../../../utils/MetaData"; // Ensure this is correctly exported
+
 
 const ProductList = () => {
   const navigate = useNavigate();

@@ -303,3 +303,7 @@ input:focus {
   flex: 0 0 16.666667%;
   max-width: 15.666667%;
 }
+
+.table td {
+  vertical-align: middle;
+}

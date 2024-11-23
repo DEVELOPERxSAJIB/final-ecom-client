@@ -56,6 +56,10 @@ const adminRoutes = [
                 element: <CreateBrand />,
               },
               {
+                path: "/admin/update-brand",
+                element: <CreateBrand />,
+              },
+              {
                 path: "/admin/products",
                 element: <ProductList />,
               },

@@ -94,27 +94,27 @@ const OrderList = () => {
     orders.forEach((order) => {
       data.rows.push({
         _id: order._id,
-        numOfItems: order.orderItems.length,
+        numOfItems: order?.orderItems?.length,
         amount: `$${order.totalPrice}`,
         orderedAt: timeAgo(order.createdAt),
         status:
-          order.orderStatus &&
-          String(order.orderStatus).includes("Delivered") ? (
-            <p style={{ color: "green" }}>{order.orderStatus}</p>
+          order?.orderStatus &&
+          String(order?.orderStatus).includes("Delivered") ? (
+            <p style={{ color: "green" }}>{order?.orderStatus}</p>
           ) : (
-            <p style={{ color: "red" }}>{order.orderStatus}</p>
+            <p style={{ color: "red" }}>{order?.orderStatus}</p>
           ),
 
         actions: (
           <>
             <button
-              onClick={() => handleOrderDetails(order._id)}
+              onClick={() => handleOrderDetails(order?._id)}
               className="btn btn-sm btn-success mr-2"
             >
               <div className="fas fa-eye"></div>{" "}
             </button>
             <button
-              onClick={() => handleDeleteOrder(order._id)}
+              onClick={() => handleDeleteOrder(order?._id)}
               className="btn btn-sm btn-danger"
             >
               <div className="fas fa-trash"></div>{" "}
