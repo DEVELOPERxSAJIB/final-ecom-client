@@ -3,6 +3,7 @@ import { MdOutlineCategory } from "react-icons/md";
 import { SiBrandfolder } from "react-icons/si";
 import { FaRegCircleDot } from "react-icons/fa6";
 import { PiFlagBannerDuotone } from "react-icons/pi";
+import { matchPath } from "react-router-dom";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -15,8 +16,7 @@ const Sidebar = () => {
             <li>
               <Link
                 className={
-                  location.pathname === "/dashboard"
-                   ? "menu-active" : null
+                  location.pathname === "/dashboard" ? "menu-active" : null
                 }
                 to="/dashboard"
               >
@@ -44,11 +44,13 @@ const Sidebar = () => {
                 data-toggle="collapse"
                 aria-expanded={
                   location.pathname === "/admin/category" ||
-                  location.pathname === "/admin/create-category"
+                  location.pathname === "/admin/create-category" ||
+                  matchPath("/admin/update-category/:id", location.pathname)
                 }
                 className={`dropdown-toggle ${
                   location.pathname === "/admin/category" ||
-                  location.pathname === "/admin/create-category"
+                  location.pathname === "/admin/create-category" ||
+                  matchPath("/admin/update-category/:id", location.pathname)
                     ? "menu-active"
                     : null
                 }`}
@@ -96,11 +98,13 @@ const Sidebar = () => {
                 data-toggle="collapse"
                 aria-expanded={
                   location.pathname === "/admin/brand" ||
-                  location.pathname === "/admin/create-brand"
+                  location.pathname === "/admin/create-brand" ||
+                  matchPath("/admin/update-brand/:id", location.pathname)
                 }
                 className={`dropdown-toggle ${
                   location.pathname === "/admin/brand" ||
-                  location.pathname === "/admin/create-brand"
+                  location.pathname === "/admin/create-brand" ||
+                  matchPath("/admin/update-brand/:id", location.pathname)
                     ? "menu-active"
                     : null
                 }`}

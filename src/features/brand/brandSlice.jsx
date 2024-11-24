@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBrand, getAllBrand } from "./brandApiSlice";
+import { createBrand, deleteBrand, getAllBrand, updateBrand } from "./brandApiSlice";
 
 const brandSlice = createSlice({
   name: "brand",
@@ -42,43 +42,38 @@ const brandSlice = createSlice({
         state.loader = false;
         state.error = actions.error.message;
       })
-    //   .addCase(orderDetailsByAdmin.pending, (state) => {
-    //     state.loader = true;
-    //   })
-    //   .addCase(orderDetailsByAdmin.fulfilled, (state, actions) => {
-    //     state.loader = false;
-    //     state.orderDetails = actions.payload.payload.order;
-    //   })
-    //   .addCase(orderDetailsByAdmin.rejected, (state, actions) => {
-    //     state.loader = false;
-    //     state.error = actions.error.message;
-    //   })
-    //   .addCase(updateOrderByAdmin.pending, (state) => {
-    //     state.loader = true;
-    //   })
-    //   .addCase(updateOrderByAdmin.fulfilled, (state, actions) => {
-    //     state.loader = false;
-    //     state.message = actions.payload.message;
-    //     state.orderDetails = actions.payload.payload.order;
-    //   })
-    //   .addCase(updateOrderByAdmin.rejected, (state, actions) => {
-    //     state.loader = false;
-    //     state.error = actions.error.message;
-    //   })
-    //   .addCase(deleteOrderByAdmin.pending, (state) => {
-    //     state.loader = true;
-    //   })
-    //   .addCase(deleteOrderByAdmin.fulfilled, (state, actions) => {
-    //     state.loader = false;
-    //     state.message = actions.payload.message;
-    //     state.orders = state.orders.filter(
-    //       (data) => data._id !== actions.payload.payload.order._id
-    //     );
-    //   })
-    //   .addCase(deleteOrderByAdmin.rejected, (state, actions) => {
-    //     state.loader = false;
-    //     state.error = actions.error.message;
-    //   });
+      .addCase(updateBrand.pending, (state) => {
+        state.loader = true;
+      })
+      .addCase(updateBrand.fulfilled, (state, actions) => {
+        state.loader = false;
+        state.message = actions.payload.message;
+        state.brands[
+          state.brands.findIndex(
+            (item) => item._id === actions.payload.payload.brand._id
+          )
+        ] = actions.payload.payload.brand;
+        state.message = actions.payload.message;
+      })
+      .addCase(updateBrand.rejected, (state, actions) => {
+        state.loader = false;
+        state.error = actions.error.message;
+      })
+      .addCase(deleteBrand.pending, (state) => {
+        state.loader = true;
+      })
+      .addCase(deleteBrand.fulfilled, (state, actions) => {
+        state.loader = false;
+        state.message = actions.payload.message;
+        state.brands = state.brands.filter(
+          (brand) => brand._id !== actions.payload.payload.brand._id
+        );
+        state.message = actions.payload.message;
+      })
+      .addCase(deleteBrand.rejected, (state, actions) => {
+        state.loader = false;
+        state.error = actions.error.message;
+      })
   },
 });
 

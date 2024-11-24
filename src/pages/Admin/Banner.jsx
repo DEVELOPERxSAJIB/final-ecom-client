@@ -3,19 +3,24 @@ import MetaData from "../../../utils/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import AlertMessage from "../../../utils/AlertMessage";
-import { myOrders } from "../../features/order/orderApiSlice";
 import { setMessageEmpty } from "../../features/auth/authSlice";
 import { Link } from "react-router-dom";
 import MainLoader from "../../../utils/MainLoader";
 import { MDBDataTable } from "mdbreact";
+import {
+  deleteBanner,
+  getAllBanner,
+} from "../../features/banner/bannerApiSlice";
+import { timeAgo } from "../../helper/helper";
+import swal from "sweetalert";
 
 const Banner = () => {
   const dispatch = useDispatch();
 
-  const { orders, error, loader } = useSelector((state) => state.order);
+  const { banners, message, error, loader } = useSelector((state) => state.banner);
 
   useEffect(() => {
-    dispatch(myOrders());
+    dispatch(getAllBanner());
 
     if (error) {
       AlertMessage({ type: "error", msg: error });
@@ -23,24 +28,20 @@ const Banner = () => {
     }
   }, [dispatch, error]);
 
-  const setOrders = () => {
+  const setBanners = () => {
     const data = {
       columns: [
         {
-          label: "Order ID",
+          label: "Banner ID",
           field: "id",
         },
         {
-          label: "Items",
-          field: "numOfItems",
+          label: "Banner",
+          field: "images",
         },
         {
-          label: "Amount",
-          field: "amount",
-        },
-        {
-          label: "Status",
-          field: "status",
+          label: "created At",
+          field: "createdAt",
         },
         {
           label: "Actions",
@@ -50,21 +51,33 @@ const Banner = () => {
       rows: [],
     };
 
-    orders?.forEach((order) => {
+    banners?.forEach((banner) => {
       data.rows.push({
-        id: order._id,
-        numOfItems: order.orderItems.length,
-        amount: `$${order.totalPrice}`,
-        status:
-          order.orderStatus &&
-          String(order.orderStatus).includes("Delivered") ? (
-            <p style={{ color: "green" }}>{order.orderStatus}</p>
-          ) : (
-            <p style={{ color: "red" }}>{order.orderStatus}</p>
-          ),
+        id: banner?._id,
+        images: (
+          <img
+            style={{
+              height: "150px",
+              width: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+              border: "1px solid rgba(255, 255, 255)",
+            }}
+            src={
+              banner?.photo
+                ? banner?.photo?.url
+                : "https://bitsofco.de/img/Qo5mfYDE5v-350.png"
+            }
+            alt="Logo"
+          />
+        ),
+        createdAt: timeAgo(banner?.createdAt),
         actions: (
-          <Link to={`/order/${order._id}`} className="btn btn-primary">
-            <i className="fa fa-eye"></i>
+          <Link
+            onClick={() => handleDeleteBrand(banner?._id)}
+            className="btn btn-danger"
+          >
+            <i className="fa fa-trash"></i>
           </Link>
         ),
       });
@@ -73,30 +86,65 @@ const Banner = () => {
     data.rows.reverse();
     return data;
   };
+
+  const handleDeleteBrand = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteBanner(id));
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (error) {
+      AlertMessage({ type: "error", msg: error });
+      dispatch(setMessageEmpty());
+    }
+
+    if (message) {
+      AlertMessage({ type: "success", msg: message });
+      dispatch(setMessageEmpty());
+    }
+  }, [dispatch, error, message]);
+
+
   return (
     <>
       <MetaData title={"Hero banners"} />
-      {loader && <MainLoader />}
+
       <div className="row">
         <div className="col-12 col-md-2">
           <Sidebar />
         </div>
         <div className="col-12 col-md-10">
-          <div className="my-5">
-            <div className="px-3 mb-3 d-flex align-items-center justify-content-between">
-              <h1 className="">All Banners</h1>
-            <Link id="view_btn" className="btn" to={`/admin/create-hero-banner`}>
-              Add New Banner
-            </Link>
+          {loader ? (
+            <MainLoader />
+          ) : (
+            <div className="my-5">
+              <div className="px-3 mb-3 d-flex align-items-center justify-content-between">
+                <h1 className="">All Banners</h1>
+                <Link
+                  id="view_btn"
+                  className="btn"
+                  to={`/admin/create-hero-banner`}
+                >
+                  Add New Banner
+                </Link>
+              </div>
+              <MDBDataTable
+                data={setBanners()}
+                className="px-3"
+                striped
+                bordered
+              />
             </div>
-            <MDBDataTable
-              data={setOrders()}
-              className="px-3"
-              striped
-              bordered
-              hover
-            />
-          </div>
+          )}
         </div>
       </div>
     </>

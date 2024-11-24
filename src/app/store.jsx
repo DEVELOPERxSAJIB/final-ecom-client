@@ -8,11 +8,15 @@ import orderListSlice from '../features/orderList/orderListSlice';
 import usersListSlice from '../features/usersList/usersListSlice';
 import reviewsListSlice from '../features/reviewsList/reviewsListSlice';
 import brandSlice from "../features/brand/brandSlice"
+import categorySlice from "../features/category/categorySlice"
+import bannerSlice from "../features/banner/bannerSlice"
 
 export const store = configureStore({
   reducer: {
     product : productSlice,
+    banner : bannerSlice,
     brand : brandSlice,
+    category : categorySlice,
     auth : authSlice,
     cart : cartSlice,
     order : orderSlice,

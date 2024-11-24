@@ -28,3 +28,29 @@ export const createBrand = createAsyncThunk("brand/createBrand", async (data) =>
     throw new Error(error.response.data.message);
   }
 });
+
+// Update brand
+export const updateBrand = createAsyncThunk("brand/updateBrand", async (data) => {
+  try {
+    const response = await axios.put(`${baseUrl}/brand/${data.id}`, data.data, {
+      withCredentials: true,
+    });
+    return response.data;
+
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+});
+
+// Update brand
+export const deleteBrand = createAsyncThunk("brand/deleteBrand", async (id) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/brand/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+});

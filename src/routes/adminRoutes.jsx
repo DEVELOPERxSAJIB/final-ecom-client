@@ -16,6 +16,8 @@ import Brand from "../pages/Admin/Brand";
 import CreateBrand from "../pages/Admin/CreateBrand";
 import Banner from "../pages/Admin/Banner";
 import CreateBanner from "../pages/Admin/CreateBanner";
+import UpdateBrand from "../pages/Admin/UpdateBrand";
+import EditCategory from "../pages/Admin/EditCategory";
 
 const adminRoutes = [
   {
@@ -48,6 +50,10 @@ const adminRoutes = [
                 element: <CreateCategory />,
               },
               {
+                path: "/admin/update-category/:id",
+                element: <EditCategory />,
+              },
+              {
                 path: "/admin/brand",
                 element: <Brand />,
               },
@@ -56,8 +62,8 @@ const adminRoutes = [
                 element: <CreateBrand />,
               },
               {
-                path: "/admin/update-brand",
-                element: <CreateBrand />,
+                path: "/admin/update-brand/:id",
+                element: <UpdateBrand />,
               },
               {
                 path: "/admin/products",

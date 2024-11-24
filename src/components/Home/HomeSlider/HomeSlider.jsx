@@ -8,35 +8,17 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import banner1 from "../../../assets/slider/banner1.jpg";
-import banner2 from "../../../assets/slider/banner2.jpg";
-import banner3 from "../../../assets/slider/banner3.png";
-import banner4 from "../../../assets/slider/banner4.png";
-import banner5 from "../../../assets/slider/banner5.png";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBanner } from "../../../features/banner/bannerApiSlice";
 
 const HomeSlider = () => {
-  const banners = [
-    {
-      image: banner1,
-      productLink: "#",
-    },
-    {
-      image: banner3,
-      productLink: "#",
-    },
-    {
-      image: banner2,
-      productLink: "#",
-    },
-    {
-      image: banner4,
-      productLink: "#",
-    },
-    {
-      image: banner5,
-      productLink: "#",
-    },
-  ];
+  const disptach = useDispatch();
+  const { banners } = useSelector((state) => state.banner);
+
+  useEffect(() => {
+    disptach(getAllBanner());
+  }, [disptach]);
 
   return (
     <>
@@ -47,11 +29,11 @@ const HomeSlider = () => {
         pagination={{
           clickable: true,
         }}
-        // autoplay={{
-        //     delay: 2500,
-        //   }}
+        autoplay={{
+            delay: 5000,
+          }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
         {banners?.map((banner, index) => (
@@ -64,7 +46,7 @@ const HomeSlider = () => {
                     width: "100vw",
                     objectFit: "cover",
                   }}
-                  src={banner?.image}
+                  src={banner?.photo?.url}
                   alt=""
                 />
               </a>

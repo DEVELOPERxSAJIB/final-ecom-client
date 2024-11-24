@@ -144,7 +144,6 @@ const CreateBrand = () => {
               disabled={loader ? true : false}
             >
               {loader ? "CREATING . . ." : "CREATE"}
-              CREATE
             </button>
           </form>
         </div>
