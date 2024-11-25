@@ -7,7 +7,7 @@ import { MdOutlineContactSupport } from "react-icons/md";
 const Features = () => {
   return (
     <>
-      <div className="container">
+      <div className="container p-2">
         <div className="row mt-5">
           <div className="col-md-3 col-sm-6 py-3">
             <div className="card feature-card border-0 shadow-sm">

@@ -100,13 +100,13 @@ const EditCategory = () => {
 
   return (
     <div className="row">
-      <MetaData title={"Update brand"} />
+      <MetaData title={"Update Category"} />
       <div className="col-12 col-md-2">
         <Sidebar />
       </div>
       <div className="col-md-3"></div>
       <div className="col-12 col-md">
-        <h1 className="my-3">Update brand</h1>
+        <h1 className="my-3">Update Category</h1>
         <div className="mb-5">
           <form onSubmit={handleEditCategory} className="shadow-sm border p-5">
             <div className="form-group">

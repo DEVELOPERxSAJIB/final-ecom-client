@@ -1,6 +1,5 @@
 import "../Categories/Categories.css";
 import { Link } from "react-router-dom";
-import photo from "../../../assets/images/camera.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllBrand } from "../../../features/brand/brandApiSlice";
@@ -15,26 +14,35 @@ const Brand = () => {
 
   return (
     <div className="section my-5">
-      <div className="container">
+      <div className="container p-0">
         <h3 className="mb-3 p-0">Top Brands</h3>
         <div className="row">
-          {brands.map((brand, index) => {
+          {[...brands].reverse().map((brand, index) => {
             return (
               <>
                 <div
                   key={index}
-                  className="col-lg-8r text-center col-md-8r  p-2"
+                  className="col-lg-8r text-center col-md-8r p-2"
                 >
                   <Link
                     style={{ textDecoration: "none" }}
-                    className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
+                    className="card shadow-sm border-0 rounded-3 bg-white hover-card"
                   >
                     <div className="card-body">
-                      <img
-                        alt="photo"
-                        className="w-75"
-                        src={brand?.photo?.url}
-                      />
+                      <div
+                        style={{ height: "70px", width: "100%", objectFit : "cover" }}
+                        className="img-area"
+                      >
+                        <img
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            objectFit : "cover"
+                          }}
+                          alt="photo"
+                          src={brand?.photo?.url}
+                        />
+                      </div>
                       <p
                         style={{
                           fontSize: "14px",
@@ -51,187 +59,6 @@ const Brand = () => {
               </>
             );
           })}
-
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="col-lg-8r text-center col-md-8r p-2">
-            <Link
-              style={{ textDecoration: "none" }}
-              className="card shadow-sm border-0 h-100 rounded-3 bg-white hover-card"
-            >
-              <div className="card-body">
-                <img alt="photo" className="w-75" src={photo} />
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#222",
-                    cursor: "pointer",
-                  }}
-                  className="mt-3"
-                >
-                  ItemName
-                </p>
-              </div>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

@@ -10,26 +10,21 @@ import {
 import AlertMessage from "../../../utils/AlertMessage";
 import { setMessageEmpty } from "../../features/productsList/productsListSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import { getAllCategory } from "../../features/category/categoryApiSlice";
+import { getAllBrand } from "../../features/brand/brandApiSlice";
 
 const ProductDetails = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
-  const categories = [
-    "Electronics",
-    "Cameras",
-    "Laptops",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
-  ];
+  const { brands } = useSelector((state) => state.brand);
+  const { categories } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(getAllCategory());
+    dispatch(getAllBrand());
+  }, [dispatch]);
 
   const { error, loader, products, message } = useSelector(
     (state) => state.productsList
@@ -63,6 +58,7 @@ const ProductDetails = () => {
     description: "",
     seller: "",
     category: "",
+    brand : "",
     stock: "",
   });
 
@@ -117,6 +113,7 @@ const ProductDetails = () => {
     form_data.append("description", input.description);
     form_data.append("seller", input.seller);
     form_data.append("category", input.category);
+    form_data.append("brand", input.brand);
     form_data.append("stock", input.stock);
 
     photo?.forEach((item) => {
@@ -135,7 +132,7 @@ const ProductDetails = () => {
     if (message) {
       AlertMessage({ type: "success", msg: message });
       dispatch(setMessageEmpty());
-      navigate('/admin/products')
+      navigate("/admin/products");
       setPhoto([]);
       setPreviewImage([]);
     }
@@ -145,97 +142,126 @@ const ProductDetails = () => {
   useEffect(() => {
     setInput({
       ...product,
+      category: product?.category?._id,
+      brand: product?.brand?._id,
     });
   }, [product]);
 
   return (
     <>
       <div className="row">
+        <MetaData title={"Update Product"} />
         <div className="col-12 col-md-2">
           <Sidebar />
         </div>
 
-        <MetaData title={"Update Product"} />
-        <div className="container">
-          <div className="wrapper my-5">
+        <div className="col-md-2"></div>
+        <div className="col-12 col-md-6">
+          <div className="my-5">
             <form
               onSubmit={handleUpdateProduct}
-              className="shadow-lg"
+              className="shadow-sm border p-4"
               encType="multipart/form-data"
             >
               <h1 className="mb-4">Update Product</h1>
-              <div className="form-group">
-                <label htmlFor="name_field">Name</label>
-                <input
-                  type="text"
-                  id="name_field"
-                  className="form-control"
-                  name="name"
-                  value={input.name}
-                  onChange={handleInputChange}
-                />
+              <div className="form-row">
+                <div className="form-group col-md-4">
+                  <label htmlFor="name_field">Name</label>
+                  <input
+                    type="text"
+                    id="name_field"
+                    className="form-control"
+                    name="name"
+                    value={input.name}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label htmlFor="price_field">Price</label>
+                  <input
+                    type="text"
+                    id="price_field"
+                    className="form-control"
+                    name="price"
+                    value={input.price}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group col-md-4">
+                  <label htmlFor="category_field">Category</label>
+                  <select
+                    name="category"
+                    value={input.category}
+                    onChange={handleInputChange}
+                    className="form-control"
+                    id="category_field"
+                    defaultValue={product?.category}
+                  >
+                    <option>-Select a category-</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category?._id}>
+                        {category?.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="price_field">Price</label>
-                <input
-                  type="text"
-                  id="price_field"
-                  className="form-control"
-                  name="price"
-                  value={input.price}
-                  onChange={handleInputChange}
-                />
+
+              <div className="form-row">
+                <div className="form-group col-md">
+                  <label htmlFor="brand">Brand</label>
+                  <select
+                    name="brand"
+                    value={input.brand}
+                    onChange={handleInputChange}
+                    className="form-control"
+                    id="brand"
+                    defaultValue={product?.brand}
+                  >
+                    <option>-Select a brand-</option>
+                    {brands.map((brand, index) => (
+                      <option key={index} value={brand?._id}>
+                        {brand?.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group col-md">
+                  <label htmlFor="stock_field">Stock</label>
+                  <input
+                    name="stock"
+                    type="number"
+                    id="stock_field"
+                    className="form-control"
+                    value={input.stock}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group col-md-5">
+                  <label htmlFor="seller_field">Seller Name</label>
+                  <input
+                    name="seller"
+                    type="text"
+                    id="seller_field"
+                    className="form-control"
+                    value={input.seller}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
+
               <div className="form-group">
                 <label htmlFor="description_field">Description</label>
                 <textarea
                   className="form-control"
                   id="description_field"
-                  rows={8}
+                  rows={5}
                   name="description"
                   value={input.description}
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="category_field">Category</label>
-                <select
-                  name="category"
-                  value={input.category}
-                  onChange={handleInputChange}
-                  className="form-control"
-                  id="category_field"
-                >
-                  <option>-Select a category-</option>
-                  {categories.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="stock_field">Stock</label>
-                <input
-                  name="stock"
-                  type="number"
-                  id="stock_field"
-                  className="form-control"
-                  value={input.stock}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="seller_field">Seller Name</label>
-                <input
-                  name="seller"
-                  type="text"
-                  id="seller_field"
-                  className="form-control"
-                  value={input.seller}
-                  onChange={handleInputChange}
-                />
-              </div>
+
               <div className="form-group">
                 <label>Images</label>
                 <div className="custom-file">
@@ -251,6 +277,7 @@ const ProductDetails = () => {
                   </label>
                 </div>{" "}
               </div>
+
               {previewImage.length > 0 && (
                 <>
                   <b>New Images</b>
@@ -293,9 +320,9 @@ const ProductDetails = () => {
               </div>
 
               <button
-                id="login_button"
+                id="view_btn"
                 type="submit"
-                className="btn btn-block py-3"
+                className="btn btn-block"
                 disabled={loader ? true : false}
               >
                 {loader ? "UPDATING . . ." : "UPDATE"}
@@ -303,6 +330,7 @@ const ProductDetails = () => {
             </form>
           </div>
         </div>
+        <div className="col-md-2"></div>
       </div>
     </>
   );

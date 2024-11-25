@@ -76,6 +76,14 @@ const ProductList = () => {
           field: "price",
         },
         {
+          label: "Brand",
+          field: "brand",
+        },
+        {
+          label: "Category",
+          field: "category",
+        },
+        {
           label: "Ratings",
           field: "ratings",
         },
@@ -96,7 +104,7 @@ const ProductList = () => {
       products &&
         products?.forEach((product) => {
           data.rows.push({
-            _id: product._id,
+            _id: product?._id,
             images: (
               <img
                 style={{ height: "40px", width: "70px", objectFit: "cover" }}
@@ -108,10 +116,12 @@ const ProductList = () => {
                 alt="Logo"
               />
             ),
-            name: product.name,
-            price: `$${product.price}`,
-            ratings: product.ratings,
-            stock: product.stock,
+            name: product?.name,
+            price: `$${product?.price}`,
+            brand : product?.brand?.name,
+            category : product?.category?.name,
+            ratings: product?.ratings,
+            stock: product?.stock,
             actions: (
               <>
                 <button

@@ -138,7 +138,7 @@ const Brand = () => {
           <div className="col-12 col-md-10">
             <div className="my-5">
               <div className="px-3 mb-3 d-flex align-items-center justify-content-between">
-                <h1 className="">All Banners</h1>
+                <h1 className="">All Brand</h1>
                 <Link id="view_btn" className="btn" to={`/admin/create-brand`}>
                   Add New Brand
                 </Link>

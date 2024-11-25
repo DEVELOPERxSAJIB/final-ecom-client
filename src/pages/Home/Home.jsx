@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MainLoader from "../../../utils/MainLoader";
 import AlertMessage from "../../../utils/AlertMessage";
 import { setMessageEmpty } from "../../features/products/productSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Ratings from "../../components/Ratings/Ratings";
 import HomeSlider from "../../components/Home/HomeSlider/HomeSlider";
@@ -15,11 +15,15 @@ import Features from "../../components/Home/Features/Features";
 import middleBanner from "../../assets/slider/middleBanner.jpg";
 import { FaRegEye } from "react-icons/fa6";
 import { BsCartPlus } from "react-icons/bs";
+import { addItem } from "../../features/cart/cartSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { products, loader, message, error, resPerPage, productCount } =
     useSelector((state) => state.product);
+  const { user } = useSelector((state) => state.auth);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(0);
@@ -27,6 +31,19 @@ const Home = () => {
   const setCurrentPageNumber = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  // const [productDetails, setProductDetails] = useState();
+
+  // console.log(productDetails);
+
+  // useEffect(() => {
+  //   const productDetails = products.find(product => product._id === id)
+  //   console.log(productDetails);
+  // }, [dispatch, id, products]);
+
+  // const handleAddToCart = (product) => {
+
+  // };
 
   useEffect(() => {
     dispatch(getAllProducts({ currentPage, pageSize }));
@@ -54,8 +71,10 @@ const Home = () => {
           <HomeSlider />
           <Features />
           <Categories />
-          <section id="products" className="container">
-            <h3 id="products_heading">Latest Products</h3>
+          <section id="products" className="container p-2">
+            <h3 className=" mt-5" id="products_heading">
+              Latest Products
+            </h3>
             <>
               <div className="row">
                 {products &&
@@ -63,7 +82,7 @@ const Home = () => {
                     return (
                       <div
                         key={index}
-                        className="col-sm-12 p-2 col-md-6 col-lg-3 my-3"
+                        className="col-sm-12 p-2 col-md-6 col-lg-3 my-2"
                       >
                         <div className="card p-2 border-0 shadow-sm rounded">
                           <img
@@ -96,13 +115,37 @@ const Home = () => {
                                 <FaRegEye />
                               </Link>
 
-                              <Link
-                                to={`/product/${item._id}`}
-                                id="view_btn"
-                                className="btn w-100"
-                              >
-                                <BsCartPlus className="ml-1" />
-                              </Link>
+                              {user ? (
+                                <Link
+                                  id="view_btn"
+                                  onClick={() => {
+                                    const fixQuantity = 1;
+                                    dispatch(
+                                      addItem({
+                                        product: item,
+                                        quantity: fixQuantity,
+                                      })
+                                    );
+                                    AlertMessage({
+                                      type: "success",
+                                      msg: `${item?.name} added into your cart`,
+                                    });
+                                  }}
+                                  disabled={item?.stock > 0 ? false : true}
+                                >
+                                  <BsCartPlus className="ml-1" />
+                                </Link>
+                              ) : (
+                                <button
+                                  type="button"
+                                  id="cart_btn"
+                                  className="btn btn-primary d-inline ml-4"
+                                  onClick={() => navigate("/login")}
+                                  disabled={item?.stock > 0 ? false : true}
+                                >
+                                  <BsCartPlus className="ml-1" />
+                                </button>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -128,7 +171,7 @@ const Home = () => {
               />
             </div>
           )}
-          <div className="container">
+          <div className="container mt-4">
             <div className="row d-block" style={{ unicodeBidi: "isolate" }}>
               <a href="#" className="middle-banner banner-effect">
                 <img

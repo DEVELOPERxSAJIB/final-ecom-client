@@ -86,7 +86,7 @@ const CreateCategory = () => {
     </div>
     <div className="col-md-3"></div>
       <div className="col-12 col-md">
-        <h1 className="my-3">Create brand</h1>
+        <h1 className="my-3">Create Category</h1>
         <div className="mb-5">
           <form
             onSubmit={handleCreateCategory}
