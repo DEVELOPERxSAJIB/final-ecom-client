@@ -8,7 +8,7 @@ const Profile = () => {
 
   return (
     <>
-    <MetaData title={`Profile @${user.name}`} />
+      <MetaData title={`Profile @${user.name}`} />
       {user ? (
         <div className="container container-fluid my-5">
           <h2 className="mt-5 ml-5">My Profile</h2>
@@ -17,8 +17,12 @@ const Profile = () => {
               <figure className="avatar avatar-profile">
                 <img
                   className="rounded-circle img-fluid"
-                  src={user?.avatar.url}
-                  alt
+                  src={user?.avatar?.url
+                    ? user?.avatar?.url
+                    : 
+                    "https://cdn-icons-png.flaticon.com/512/3870/3870822.png"
+                  }
+                  alt={"profile image"}
                 />
               </figure>
               <Link

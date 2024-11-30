@@ -125,7 +125,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Out of Stock
-                        <br /> <b>{outOfStock}</b>
+                        <br /> <b>{outOfStock ? outOfStock : "Stock Full"}</b>
                       </div>
                     </div>
                   </div>

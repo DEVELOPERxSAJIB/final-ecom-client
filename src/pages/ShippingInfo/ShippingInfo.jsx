@@ -119,10 +119,10 @@ const ShippingInfo = () => {
                 onChange={handleInputChange}
               >
                 <option>-Select your country-</option>
-                {countriesList.map((country) => (
+                {countriesList?.map((country) => (
                   <>
-                    <option key={country.name} value={country.name}>
-                      {country.name}
+                    <option key={country?.name} value={country?.name}>
+                      {country?.name}
                     </option>
                   </>
                 ))}

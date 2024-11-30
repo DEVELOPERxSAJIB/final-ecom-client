@@ -41,8 +41,8 @@ const ProductDetails = () => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    const singleProductDetails = products.find(
-      (data) => data._id === params.id
+    const singleProductDetails = products?.find(
+      (data) => data?._id === params?.id
     );
     setProduct(singleProductDetails);
 
@@ -307,8 +307,8 @@ const ProductDetails = () => {
               <b>Old Images</b>
               <div className="image-container">
                 <div className="img-area">
-                  {previewOldImage?.map((img, index) => (
-                    <div className="item-img shadow-sm" key={index}>
+                  {previewOldImage?.map((img) => (
+                    <div className="item-img shadow-sm" key={img?.url}>
                       <img src={img} alt="" />
                     </div>
                   ))}

@@ -13,8 +13,8 @@ import { getAllCategory } from "../../features/category/categoryApiSlice";
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const { loader, error, message } = useSelector((state) => state.productsList);
-  const { brands } = useSelector((state) => state.brand);
-  const { categories } = useSelector((state) => state.category);
+  const { brands } = useSelector((state) => state?.brand);
+  const { categories } = useSelector((state) => state?.category);
 
   console.log(categories);
 
@@ -119,6 +119,7 @@ const CreateProduct = () => {
         description: "",
         seller: "",
         category: "",
+        brand : "",
         stock: "",
       });
       setPhoto([]);
@@ -176,8 +177,8 @@ const CreateProduct = () => {
                     id="category_field"
                   >
                     <option>-Select a category-</option>
-                    {categories?.map((category, index) => (
-                      <option key={index} value={category._id}>
+                    {categories?.map((category) => (
+                      <option key={category?._id} value={category._id}>
                         {category?.name}
                       </option>
                     ))}
@@ -195,9 +196,9 @@ const CreateProduct = () => {
                     id="brand_field"
                   >
                     <option>-Select a category-</option>
-                    {brands?.map((brand, index) => (
-                      <option key={index} value={brand._id}>
-                        {brand.name || "Unknown Brand"}
+                    {brands?.map((brand) => (
+                      <option key={brand?._id} value={brand._id}>
+                        {brand?.name || "Unknown Brand"}
                       </option>
                     ))}
                   </select>
@@ -254,7 +255,7 @@ const CreateProduct = () => {
               <div style={{maxWidth : "100%"}} className="image-container">
                 <div className="img-area">
                   {previewImage?.map((img, index) => (
-                    <div style={{maxWidth : "200px", height : "120px"}} className="item-img pb-3" key={index}>
+                    <div style={{maxWidth : "200px", height : "120px"}} className="item-img pb-3" key={img?._id}>
                       <img src={img} alt="product photo" className="border" />
                       <div
                         onClick={() => handleRemoveImg(index)}
@@ -273,7 +274,7 @@ const CreateProduct = () => {
                 id="view_btn"
                 type="submit"
                 className="btn btn-block"
-                // disabled={loader ? true : false}
+                disabled={loader ? true : false}
               >
                 {loader ? "CREATING . . ." : "CREATE"}
               </button>

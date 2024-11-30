@@ -103,8 +103,8 @@ const OrderDetails = () => {
                 </p>
                 <h4 className="my-4">Order Items:</h4>
                 <hr />
-                {orderDetails.orderItems.map((item, index) => (
-                  <div key={index} className="cart-item my-1">
+                {orderDetails.orderItems.map((item) => (
+                  <div key={item?._id} className="cart-item my-1">
                     <div className="row my-5">
                       <div className="col-4 col-lg-2">
                         <img

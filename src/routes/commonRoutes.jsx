@@ -21,6 +21,14 @@ export const commonRoutes = [
         element: <Search />,
       },
       {
+        path: "/search/category/:catId",
+        element: <Search />,
+      },
+      {
+        path: "/search/brand/:brandId",
+        element: <Search />,
+      },
+      {
         path: "/product/:id",
         element: <SingleProduct />,
       },

@@ -10,7 +10,7 @@ const UpdateProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, error, message } = useSelector((state) => state.auth);
+  const { loader, user, error, message } = useSelector((state) => state.auth);
 
   const [avatar, setAvatar] = useState(null);
   const [previewAvatar, setPreviewAvatar] = useState(null);
@@ -45,7 +45,7 @@ const UpdateProfile = () => {
       form_data.append("avatar", avatar);
     }
 
-    dispatch(updateProfile({ id : user._id, data: form_data}));
+    dispatch(updateProfile({ id: user._id, data: form_data }));
   };
 
   useEffect(() => {
@@ -58,7 +58,6 @@ const UpdateProfile = () => {
     if (error) {
       AlertMessage({ type: "error", msg: error });
       dispatch(setMessageEmpty());
-      navigate("/update-profile");
     }
   }, [dispatch, error, message, navigate]);
 
@@ -108,7 +107,12 @@ const UpdateProfile = () => {
                   <div>
                     <figure className="avatar mr-3 item-rtl">
                       <img
-                        src={previewAvatar ? previewAvatar : user.avatar.url}
+                        src={
+                          previewAvatar
+                            ? previewAvatar
+                            : user.avatar.url ||
+                              "https://cdn-icons-png.flaticon.com/512/3870/3870822.png"
+                        }
                         className="rounded-circle"
                         alt="Avatar Preview"
                       />
@@ -131,8 +135,9 @@ const UpdateProfile = () => {
               <button
                 type="submit"
                 className="btn update-btn btn-block mt-4 mb-3"
+                disabled={loader ? true : false}
               >
-                Update
+                {loader ? "Update . . ." : "Update"}
               </button>
             </form>
           </div>

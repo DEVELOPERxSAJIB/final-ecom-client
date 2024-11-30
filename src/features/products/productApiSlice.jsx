@@ -5,7 +5,8 @@ import { baseUrl } from "../../../utils/baseUrl";
 // get all products
 export const getAllProducts = createAsyncThunk(
   "product/getAllProduct",
-  async ({ currentPage, pageSize, keyword, category, priceRange, sort, ratings }) => {
+  async ({ currentPage, pageSize, keyword, category, brand, priceRange, sort, ratings }) => {
+    console.log(category);
     try {
       let apiUrl = `${baseUrl}/products?page=${currentPage}&pageSize=${pageSize}`;
 
@@ -17,6 +18,11 @@ export const getAllProducts = createAsyncThunk(
       // Append the category to the URL if it is present
       if (category) {
         apiUrl += `&category=${category}`;
+      }
+
+      // Append the brand to the URL if it is present
+      if (brand) {
+        apiUrl += `&brand=${brand}`;
       }
 
       // Append the priceRange to the URL if it is present

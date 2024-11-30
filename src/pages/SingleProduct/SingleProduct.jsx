@@ -133,36 +133,21 @@ const SingleProduct = () => {
               <div className="row shadow-5">
                 <div className="col-12 product-img mb-1">
                   <div className="lightbox shadow-sm">
-                    {/* <ReactImageMagnify
-                      style={{ zIndex: 9 }}
-                      {...{
-                        smallImage: {
-                          alt: "Wristwatch by Ted Baker London",
-                          isFluidWidth: true,
-                          src: productSingleThmb
-                            ? productSingleThmb
-                            : productDetails.images[0].url,
-                        },
-
-                        largeImage: {
-                          src: productSingleThmb
-                            ? productSingleThmb
-                            : productDetails.images[0].url,
-                          width: 1200,
-                          height: 1800,
-                          onLoad: "Loading image...",
-                        },
-                      }}
-                    /> */}
-                    <img style={{width: "100%", objectFit: "cover"}} src={productSingleThmb
-                            ? productSingleThmb
-                            : productDetails.images[0].url} alt="" />
+                    <img
+                      style={{ width: "100%", objectFit: "cover" }}
+                      src={
+                        productSingleThmb
+                          ? productSingleThmb
+                          : productDetails.images[0].url
+                      }
+                      alt=""
+                    />
                   </div>
                 </div>
-                {productDetails._id === id &&
+                {productDetails?._id === id &&
                   productDetails?.images?.map((image) => {
                     return (
-                      <div key={image.public_id} className="col-3 mt-1">
+                      <div key={image?.public_id} className="col-3 mt-1">
                         <img
                           style={{
                             height: "80px",
@@ -187,8 +172,23 @@ const SingleProduct = () => {
             </div>
 
             <div className="product-right-area col-12 col-lg-5">
-              <p id="product_id">Product # {productDetails?._id}</p>
-              <h3>{productDetails?.name}</h3>
+              <p id="product_id"> Product # {productDetails?._id}</p>
+              <div className="d-flex align-items-center justify-content-between">
+                <h3>{productDetails?.name}</h3>
+                <div
+                  style={{ height: "40px", width: "40px", objectFit: "cover" }}
+                  className="img-area"
+                >
+                  <img
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                    src={productDetails?.brand?.photo?.url}
+                  />
+                </div>
+              </div>
               <hr />
               <div className="d-flex align-items-center">
                 <Ratings value={productDetails.ratings} />
@@ -244,16 +244,24 @@ const SingleProduct = () => {
                 )}
               </div>
               <hr />
-              <p>
-                Status:{" "}
-                <span id="stock_status">
-                  {productDetails?.stock > 0 ? (
-                    "In Stock"
-                  ) : (
-                    <span style={{ color: "red" }}>Out Of Stock</span>
-                  )}
-                </span>
-              </p>
+              <div className="d-flex justify-content-between align-items-center">
+                <p className="m-0">
+                  Status:{" "}
+                  <span id="stock_status">
+                    {productDetails?.stock > 0 ? (
+                      "In Stock"
+                    ) : (
+                      <span style={{ color: "red" }}>Out Of Stock</span>
+                    )}
+                  </span>
+                </p>
+                <p className="m-0">
+                  Category:{" "}
+                  <span id="stock_status">
+                    {productDetails?.category?.name}
+                  </span>
+                </p>
+              </div>
               <hr />
               <h4 className="mt-2">Description:</h4>
               <p>{productDetails?.description}</p>

@@ -53,7 +53,7 @@ const Cart = () => {
               <div className="col-12 col-lg-8">
                 <hr />
                 {cartItems &&
-                  Array.from(cartItems).map((item, index) => (
+                  Array.from(cartItems)?.map((item, index) => (
                     <div key={index} className="cart-item">
                       <div className="row d-flex align-items-center">
                         <div className="col-4 col-lg-3">

@@ -67,16 +67,16 @@ const ReviewsList = () => {
       rows: [],
     };
 
-    reviews.map((review) =>
+    reviews?.map((review) =>
       data.rows.push({
-        id: review._id,
-        rating: review.rating,
-        comment: review.comment,
-        name: review.name,
+        id: review?._id,
+        rating: review?.rating,
+        comment: review?.comment,
+        name: review?.name,
         action: (
           <>
             <button
-              onClick={() => handleDeleteOrder(review._id)}
+              onClick={() => handleDeleteOrder(review?._id)}
               className="btn btn-sm btn-danger"
             >
               <div className="fas fa-trash"></div>{" "}

@@ -62,7 +62,7 @@ const ConfirmOrder = () => {
             </p>
             <hr />
             <h4 className="mt-4">Your Cart Items:</h4>
-            {cartItems.map((item, index) => (
+            {cartItems?.map((item, index) => (
               <>
                 <hr />
                 <div key={index} className="cart-item my-1">

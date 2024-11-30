@@ -8,6 +8,8 @@ import { setMessageEmpty } from "../../features/products/productSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Ratings from "../../components/Ratings/Ratings";
+import { getAllCategory } from "../../features/category/categoryApiSlice";
+import { getAllBrand } from "../../features/brand/brandApiSlice";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -18,27 +20,19 @@ const Search = () => {
 
   const { products, loader, message, error, resPerPage, productCount } =
     useSelector((state) => state.product);
+  const { categories: productCategory } = useSelector(
+    (state) => state.category
+  );
+  const { brands } = useSelector((state) => state.brand);
 
-  const categories = [
-    "All",
-    "Electronics",
-    "Cameras",
-    "Laptops",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
-  ];
+  const newObj = { name: "All", _id: "All" };
+  const categories = [newObj, ...productCategory];
 
   const [addClass, setAddClass] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(0);
   const [category, setCategory] = useState("");
+  const [brand, setBrand] = useState("");
 
   const setCurrentPageNumber = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -69,21 +63,47 @@ const Search = () => {
     setPriceRange({ minPrice: Number(minPrice), maxPrice: Number(maxPrice) });
   };
 
-
   // Filter with ratings
   const [ratings, setRatings] = useState(0);
   const handleRatings = (e) => {
     setRatings(e.target.value);
   };
 
+  // Filter with brand names
+  const [selectedBrands, setSelectedBrands] = useState([params?.brandId]);
+
+  // Step 2: Handle checkbox changes (store brand names)
+  const handleCheckboxChange = (brandId) => {
+    setSelectedBrands((prevSelected) => {
+      if (prevSelected.includes(brandId)) {
+        // If the brand is already selected, remove it
+        return prevSelected.filter((id) => id !== brandId);
+      }
+      // If the brand is not selected, add it
+      return [...prevSelected, brandId];
+    });
+  };
+
   useEffect(() => {
+    const brand =
+      selectedBrands.length > 0
+        ? selectedBrands
+        : params.brandId
+        ? Array.isArray(params.brandId)
+          ? params.brandId
+          : [params.brandId] 
+        : [];
+
+    dispatch(getAllCategory());
+    dispatch(getAllBrand());
     dispatch(
       getAllProducts({
         currentPage,
         pageSize,
         keyword,
-        category,
+        category: category ? category : params?.catId,
         priceRange,
+        brand,
         sort,
         ratings,
       })
@@ -94,8 +114,11 @@ const Search = () => {
     dispatch,
     keyword,
     pageSize,
+    params.brandId,
+    params.catId,
     priceRange,
     ratings,
+    selectedBrands,
     sort,
   ]);
 
@@ -152,7 +175,7 @@ const Search = () => {
                     className="btn btn-rounded"
                     style={{
                       width: "20%",
-                      background: "#FA9C23",
+                      background: "#10ac84",
                       color: "#fff",
                     }}
                   >
@@ -166,7 +189,7 @@ const Search = () => {
                 <h4 className="mb-3">Categories</h4>
 
                 <ul className="pl-0">
-                  {categories.map((category, index) => (
+                  {categories?.map((category, index) => (
                     <li
                       style={{
                         cursor: "pointer",
@@ -175,16 +198,54 @@ const Search = () => {
                       key={category}
                       onClick={() => {
                         handleAddNewClass(index);
-                        setCategory(category === "All" ? "" : category);
+                        setCategory(
+                          category?._id === "All" ? "" : category?._id
+                        );
                       }}
                     >
                       <span
                         className={`${
-                          addClass === index ? "selected-category" : ""
+                          addClass === index ||
+                          (!addClass && category._id === params.catId)
+                            ? "selected-category"
+                            : ""
                         }`}
                       >
-                        {category}
+                        {category?.name}
                       </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <hr className="my-4" />
+              <div className="mt-3">
+                <h4 className="mb-3">Brands</h4>
+
+                <ul className="pl-0">
+                  {brands?.map((brand, index) => (
+                    <li
+                      style={{
+                        cursor: "pointer",
+                        listStyleType: "none",
+                      }}
+                      key={brand?._id}
+                    >
+                      <div className="form-check">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id={`brand-checkbox-${index}`}
+                          checked={selectedBrands.includes(brand?._id)}
+                          onChange={() => handleCheckboxChange(brand?._id)}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor={`brand-checkbox-${index}`}
+                        >
+                          {brand?.name}
+                        </label>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -245,10 +306,10 @@ const Search = () => {
                 {products ? (
                   <div className="row">
                     {products &&
-                      products.map((item, index) => {
+                      products?.map((item) => {
                         return (
                           <div
-                            key={index}
+                            key={item?._id}
                             className="col-sm-12 col-md-6 col-lg-4 my-3"
                           >
                             <div className="card p-3 rounded">
@@ -271,22 +332,22 @@ const Search = () => {
                                 <div className="ratings mt-auto">
                                   <div className="d-flex align-items-center mt-auto">
                                     <Ratings
-                                      value={item.ratings}
+                                      value={item?.ratings}
                                       size="small"
                                     />
                                     <span id="no_of_reviews">
-                                      ({item.numOfReviews} Reviews)
+                                      ({item?.numOfReviews} Reviews)
                                     </span>
                                   </div>
                                   <span id="no_of_reviews">
-                                    ({item.numOfReviews} Reviews)
+                                    ({item?.numOfReviews} Reviews)
                                   </span>
                                 </div>
-                                <p className="card-text">${item.price}</p>
+                                <p className="card-text">${item?.price}</p>
                                 <Link
                                   id="view_btn"
                                   className="btn btn-block"
-                                  onClick={() => handleViewDetails(item._id)}
+                                  onClick={() => handleViewDetails(item?._id)}
                                 >
                                   View Details
                                 </Link>
@@ -298,7 +359,9 @@ const Search = () => {
                   </div>
                 ) : (
                   <div className="text-center mt-5 align-items-middle">
-                    <h1 className="display-4 orange">Oops!</h1>
+                    <h1 style={{ color: "#10AC84" }} className="display-4">
+                      Oops!
+                    </h1>
                     <h5 className="lead">No such product found.</h5>
                   </div>
                 )}

@@ -21,7 +21,7 @@ const Register = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(
-    "https://cdn-icons-png.flaticon.com/512/8792/8792047.png"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ63g7rwZfd__LpTonMrIgDp04P-_FW5rAVng&s"
   );
 
   const handlePhoto = (e) => {

@@ -18,6 +18,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { addItem } from "../../features/cart/cartSlice";
 
 const Home = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,19 +32,6 @@ const Home = () => {
   const setCurrentPageNumber = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
-  // const [productDetails, setProductDetails] = useState();
-
-  // console.log(productDetails);
-
-  // useEffect(() => {
-  //   const productDetails = products.find(product => product._id === id)
-  //   console.log(productDetails);
-  // }, [dispatch, id, products]);
-
-  // const handleAddToCart = (product) => {
-
-  // };
 
   useEffect(() => {
     dispatch(getAllProducts({ currentPage, pageSize }));
@@ -78,41 +66,41 @@ const Home = () => {
             <>
               <div className="row">
                 {products &&
-                  products.map((item, index) => {
+                  products?.map((item, index) => {
                     return (
                       <div
-                        key={index}
+                        key={item?._id || index}
                         className="col-sm-12 p-2 col-md-6 col-lg-3 my-2"
                       >
                         <div className="card p-2 border-0 shadow-sm rounded">
                           <img
                             style={{
                               objectFit: "cover",
-                              objectPosition: "top center",
+                              // objectPosition: "top center",
                             }}
                             className="card-img-top mx-auto"
                             src={item?.images[0]?.url}
                           />
                           <div className="card-body d-flex flex-column">
                             <div className="card-title">
-                              <Link to={`/product/${item._id}`}>
-                                {item.name}
+                              <Link to={`/product/${item?._id}`}>
+                                {item?.name}
                               </Link>
                             </div>
                             <div className="d-flex align-items-center mt-auto">
-                              <Ratings value={item.ratings} size="small" />
+                              <Ratings value={item?.ratings} size="small" />
                               <span id="no_of_reviews">
-                                ({item.numOfReviews} Reviews)
+                                ({item?.numOfReviews} Reviews)
                               </span>
                             </div>
-                            <p className="card-text">${item.price}</p>
+                            <p className="card-text">${item?.price}</p>
                             <div className="d-flex">
                               <Link
-                                to={`/product/${item._id}`}
+                                to={`/product/${item?._id}`}
                                 id="view_btn"
                                 className="btn w-100 mr-1"
                               >
-                                <FaRegEye />
+                                <FaRegEye /> Details
                               </Link>
 
                               {user ? (
@@ -139,7 +127,7 @@ const Home = () => {
                                 <button
                                   type="button"
                                   id="cart_btn"
-                                  className="btn btn-primary d-inline ml-4"
+                                  className="btn btn-primary d-inline ml-2"
                                   onClick={() => navigate("/login")}
                                   disabled={item?.stock > 0 ? false : true}
                                 >

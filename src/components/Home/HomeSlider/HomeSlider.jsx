@@ -13,8 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBanner } from "../../../features/banner/bannerApiSlice";
 
 const HomeSlider = () => {
+
   const disptach = useDispatch();
-  const { banners } = useSelector((state) => state.banner);
+  const { banners } = useSelector((state) => state?.banner);
 
   useEffect(() => {
     disptach(getAllBanner());
@@ -36,9 +37,9 @@ const HomeSlider = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        {banners?.map((banner, index) => (
+        {banners?.map((banner) => (
           <>
-            <SwiperSlide key={index}>
+            <SwiperSlide key={banner?._id}>
               <a href={banner?.productLink}>
                 <img
                   style={{

@@ -35,10 +35,9 @@ const productSlice = createSlice({
         state.productCount = action.payload.payload.productCount;
         state.resPerPage = action.payload.payload.resPerPage;
       })
-      .addCase(getAllProducts.rejected, (state, action) => {
+      .addCase(getAllProducts.rejected, (state) => {
         state.loader = false;
         state.products = null;
-        state.error = action.error.message;
       })
       .addCase(getSingleProduct.pending, (state) => {
         state.loader = true;

@@ -15,6 +15,7 @@ import Metadata from "../../../utils/MetaData"; // Ensure this is correctly expo
 
 
 const ProductList = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
