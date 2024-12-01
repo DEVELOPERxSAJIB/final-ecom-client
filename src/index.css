@@ -25,8 +25,8 @@ input:focus {
 
 .dropdown-menu {
   position: absolute;
-  top: 160%;
-  left: -20px;
+  top: 110%;
+  left: 20px;
   z-index: 1000;
   display: none;
   float: left;
@@ -306,4 +306,21 @@ input:focus {
 
 .table td {
   vertical-align: middle;
+}
+
+
+.avatar-nav img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+#cart_count {
+  font-weight: bold;
+}
+
+.dropdown-toggle::after {
+  right: 0px;
+}
+
+a#userMenu {
+  padding-bottom: 0;
 }

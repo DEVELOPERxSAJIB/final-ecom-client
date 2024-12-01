@@ -30,9 +30,8 @@ const Search = () => {
 
   const [addClass, setAddClass] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(0);
+  const [pageSize] = useState(0);
   const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
 
   const setCurrentPageNumber = (pageNumber) => {
     setCurrentPage(pageNumber);

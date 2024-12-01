@@ -1,12 +1,13 @@
 import { Helmet } from "react-helmet"
 
+// eslint-disable-next-line react/prop-types
 const MetaData = ({ title }) => {
 
   return (
 
     <Helmet>
 
-        <title>{`${title} - Shopping Cart`}</title>
+        <title>{`${title} - Bigbazar`}</title>
 
 
     </Helmet>

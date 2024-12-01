@@ -27,7 +27,7 @@ const Home = () => {
   const { user } = useSelector((state) => state.auth);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(0);
+  const [pageSize] = useState(0);
 
   const setCurrentPageNumber = (pageNumber) => {
     setCurrentPage(pageNumber);
