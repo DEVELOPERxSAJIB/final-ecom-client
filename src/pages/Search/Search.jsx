@@ -91,7 +91,7 @@ const Search = () => {
         : params.brandId
         ? Array.isArray(params.brandId)
           ? params.brandId
-          : [params.brandId] 
+          : [params.brandId]
         : [];
 
     dispatch(getAllCategory());
@@ -218,38 +218,45 @@ const Search = () => {
                 </ul>
               </div>
 
-              <hr className="my-4" />
-              <div className="mt-3">
-                <h4 className="mb-3">Brands</h4>
+              {keyword ? (
+                ""
+              ) : (
+                <>
+                  {" "}
+                  <hr className="my-4" />
+                  <div className="mt-3">
+                    <h4 className="mb-3">Brands</h4>
 
-                <ul className="pl-0">
-                  {brands?.map((brand, index) => (
-                    <li
-                      style={{
-                        cursor: "pointer",
-                        listStyleType: "none",
-                      }}
-                      key={brand?._id}
-                    >
-                      <div className="form-check">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          id={`brand-checkbox-${index}`}
-                          checked={selectedBrands.includes(brand?._id)}
-                          onChange={() => handleCheckboxChange(brand?._id)}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor={`brand-checkbox-${index}`}
+                    <ul className="pl-0">
+                      {brands?.map((brand, index) => (
+                        <li
+                          style={{
+                            cursor: "pointer",
+                            listStyleType: "none",
+                          }}
+                          key={brand?._id}
                         >
-                          {brand?.name}
-                        </label>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                          <div className="form-check">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              id={`brand-checkbox-${index}`}
+                              checked={selectedBrands.includes(brand?._id)}
+                              onChange={() => handleCheckboxChange(brand?._id)}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={`brand-checkbox-${index}`}
+                            >
+                              {brand?.name}
+                            </label>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
 
               <hr className="my-4" />
               <div className="mt-3">
